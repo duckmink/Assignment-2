@@ -1,5 +1,6 @@
 package a2_2001040134;
 
+import java.util.Objects;
 import java.util.Vector;
 
 import utils.DOpt;
@@ -164,5 +165,18 @@ public class Set<T> implements Collection<T> {
             }
         }
         return true;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Set)) return false;
+        Set<T> set = (Set<T>) o;
+        if (elements.size() != set.size() ) return false;
+        return elements.equals(set.getElements());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(elements);
     }
 }

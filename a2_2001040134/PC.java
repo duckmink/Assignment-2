@@ -1,5 +1,6 @@
 package a2_2001040134;
 
+
 import java.util.HashSet;
 import java.util.Vector;
 
@@ -221,27 +222,19 @@ public class PC {
 	}
 
 	@Override
+	@DOpt(type = OptType.Default)
 	public boolean equals(Object o) {
-		if (o == null || !(o instanceof PC)) {
-			return false;
-		}
-
-		if (this.model == ((PC) o).getModel() &&
-				this.year == ((PC) o).getYear() &&
-				this.manName == ((PC) o).getManName() && 
-				this.equalsComps(o)) {
+		if (this == o)
 			return true;
-		} else
+		if (!(o instanceof PC))
 			return false;
+		PC pc = (PC) o;
+		return (this.year == pc.year &&
+				this.model.equals(pc.model) &&
+				this.manName.equals(pc.manName) &&
+				this.equalsComps(pc));
 	}
 
-	/**
-	 * @effects
-	 *          if this.comps containts the same components as o
-	 *          return true
-	 *          else
-	 *          return false
-	 */
 	public boolean equalsComps(Object o) {
 		Set<String> srcComps = this.getComps();
 		Vector<String> src = srcComps.getElements();
@@ -249,18 +242,13 @@ public class PC {
 		for (String e : src) {
 			s.add(e);
 		}
-
 		Set<String> tgtComps = ((PC) o).getComps();
 		Vector<String> tgt = tgtComps.getElements();
 		HashSet<String> t = new HashSet<>();
 		for (String e : tgt) {
 			t.add(e);
 		}
-
-		if (s.equals(t)) {
-			return true;
-		} else
-			return false;
+		return t.equals(s);
 
 	}
 }

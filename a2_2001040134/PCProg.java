@@ -75,24 +75,11 @@ public class PCProg {
     }
 
     // create a local PC object
-    PC newPC = PCFactory.createPC(m, y, mn, cs);
+    PCFactory factory = PCFactory.getInstance();
+    PC newPC = factory.createPC(m, y, mn, cs);
 
     // check valid PC and duplication
-    if (newPC.repOK()) {
-      if (objs.size() > 0) {
-        Vector<PC> pcs = this.getObjects();
-        for (PC e : pcs) {
-          if (e.equals(newPC)) {
-            System.out.println("Duplicate PC");
-          } else {
-            objs.insert(newPC);
-          }
-        }
-      } else {
-        objs.insert(newPC);
-      }
-    } else
-      System.out.println("Invalid PC");
+    this.objs.insert(newPC);
 
     // asking if the user want to create a new PC or not
     System.out.println("Continue creating PC? [Y/N]");
